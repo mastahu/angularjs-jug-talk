@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "grunt-contrib-connect": "~0.3.0"
+  }
+}

@@ -9,11 +9,18 @@
 <body ng-app="app">
 	<h2>Meeting attendees app</h2>
 	<div ng-controller="PeopleCtrl">
-		New attendee: <input type="text" ng-model="newAttendee" placeholder="Attendee name here"></input><button ng-click="addPerson()">Add</button>
-		<br/>
-		<p>Registered attendees</p>
+		<h3>New attendee</h3>
+		Attendee name: <input type="text" ng-model="newAttendee.name" placeholder="name">
+		<br>
+		Email: <input type="text" ng-model="newAttendee.email" placeholder="email">
+		<br>
+		Confirmed: <input type="checkbox" ng-model="newAttendee.confirmed">
+		<br>
+		<button ng-click="addPerson()">Add</button>
+		<br>
+		<h3>Already registered</h3>
 		<ul>
-			<li ng-repeat="person in people">{{person}}</li>
+			<li ng-repeat="person in people">{{person.name}} ({{person.email}}) <img src="tick-icon.png" ng-show="person.confirmed"></li>
 		</ul>
 	</div>
 	<script type="text/javascript" src="app.js"></script>

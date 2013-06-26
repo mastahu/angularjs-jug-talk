@@ -2,18 +2,27 @@
 
 var app = angular.module('app', []);
 
-app.controller('PeopleCtrl', function($scope, registeredAttendees) {
+app.constant('attendeesLimit', 5);
+
+app.constant('messages', {
+	maxLimitReached: 'Sorry, no more slots available'
+});
+
+app.controller('PeopleCtrl', function($scope, registeredAttendees, messages) {
 
 	$scope.people = registeredAttendees.attendees;
 
 	$scope.addPerson = function() {
-		registeredAttendees.addAttendee($scope.newAttendee);
+		if(registeredAttendees.addAttendee($scope.newAttendee) === false) {
+			$scope.message = messages.maxLimitReached;
+			return;
+		}
 		delete $scope.newAttendee;
 	}
 
 });
 
-app.service('registeredAttendees', function() {
+app.service('registeredAttendees', function(attendeesLimit) {
 
 	this.attendees = [
 		{name: 'John Doe', email: 'john@doe.com', confirmed: true},
@@ -22,7 +31,10 @@ app.service('registeredAttendees', function() {
 	];
 
 	this.addAttendee = function(attendee) {
-		this.attendees.push(attendee);
+		if(this.attendees.length == attendeesLimit) {
+			return false;
+		}
+		this.attendees.push(attendee);			
 	};
 
 });

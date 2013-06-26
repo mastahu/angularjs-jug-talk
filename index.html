@@ -9,6 +9,7 @@
 <body ng-app="app">
 	<h2>Meeting attendees app</h2>
 	<div ng-controller="PeopleCtrl">
+		<span style="color:red" ng-show="message">{{message}}</span>
 		<h3>New attendee</h3>
 		Attendee name: <input type="text" ng-model="newAttendee.name" placeholder="name">
 		<br>

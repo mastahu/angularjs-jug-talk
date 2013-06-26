@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Use the AngularJS, Luke</title>
+	<script type="text/javascript" src="vendor/jquery.js"></script>
+	<script type="text/javascript" src="vendor/angular.js"></script>
+</head>
+<body ng-app="app">
+	<h2>Meeting attendees app</h2>
+	<div ng-controller="PeopleCtrl">
+		New attendee: <input type="text" ng-model="newAttendee" placeholder="Attendee name here"></input><button ng-click="addPerson()">Add</button>
+		<br/>
+		<p>Registered attendees</p>
+		<ul>
+			<li ng-repeat="person in people">{{person}}</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="app.js"></script>
+</body>
+</html>

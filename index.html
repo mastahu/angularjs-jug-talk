@@ -19,11 +19,7 @@
 		<br>
 		<button ng-click="addPerson()">Add</button>
 		<br>
-		<h3>Already registered</h3>
-		<ul>
-			<li ng-repeat="person in people | filter:search">{{person.name | uppercase}} ({{person.email}}) <img src="tick-icon.png" ng-show="person.confirmed"></li>
-		</ul>
-		<p>Filter attendees: <input type="text" ng-model="search">
+		<ng-include src="'registeredAttendees.html'"></ng-include>
 	</div>
 	
 	<script type="text/javascript" src="app.js"></script>
@@ -31,5 +27,6 @@
 	<script type="text/ng-template" id="errorMsgDirective">
 		<div ng-show="message"><span style="color:red">Error is: {{message}}</span><button ng-click="ok()">Ok, got it</button></div>
 	</script>
+
 </body>
 </html>

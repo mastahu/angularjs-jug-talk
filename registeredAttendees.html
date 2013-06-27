@@ -1,0 +1,5 @@
+<h3>Already registered</h3>
+<ul>
+	<li ng-repeat="person in people | filter:search">{{person.name | uppercase}} ({{person.email}}) <img src="tick-icon.png" ng-show="person.confirmed"></li>
+</ul>
+<p>Filter attendees: <input type="text" ng-model="search">

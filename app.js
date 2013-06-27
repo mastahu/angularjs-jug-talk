@@ -44,7 +44,7 @@ app.directive('errorMsg', function($rootScope, messages) {
 	return {
 		restrict: 'E',
 		scope: {},
-		template: '<div ng-show="message"><span style="color:red">{{message}}</span><button ng-click="ok()">Ok, got it</button></div>',
+		templateUrl: 'errorMsgDirective',
 		link: function(scope, el, attrs) {
 			$rootScope.$on('error', function() {
 				scope.message = messages.maxLimitReached + ' [ I am from directive]';

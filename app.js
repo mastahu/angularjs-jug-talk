@@ -14,7 +14,6 @@ app.controller('PeopleCtrl', function($scope, registeredAttendees, messages) {
 
 	$scope.addPerson = function() {
 		if(registeredAttendees.addAttendee($scope.newAttendee) === false) {
-			$scope.message = messages.maxLimitReached;
 			return;
 		}
 		delete $scope.newAttendee;
@@ -22,7 +21,7 @@ app.controller('PeopleCtrl', function($scope, registeredAttendees, messages) {
 
 });
 
-app.service('registeredAttendees', function(attendeesLimit) {
+app.service('registeredAttendees', function(attendeesLimit, $rootScope) {
 
 	this.attendees = [
 		{name: 'John Doe', email: 'john@doe.com', confirmed: true},
@@ -32,9 +31,30 @@ app.service('registeredAttendees', function(attendeesLimit) {
 
 	this.addAttendee = function(attendee) {
 		if(this.attendees.length == attendeesLimit) {
+			$rootScope.$broadcast('error');
 			return false;
 		}
 		this.attendees.push(attendee);			
 	};
+
+});
+
+app.directive('errorMsg', function($rootScope, messages) {
+
+	return {
+		restrict: 'E',
+		scope: {},
+		template: '<div ng-show="message"><span style="color:red">{{message}}</span><button ng-click="ok()">Ok, got it</button></div>',
+		link: function(scope, el, attrs) {
+			$rootScope.$on('error', function() {
+				scope.message = messages.maxLimitReached + ' [ I am from directive]';
+			});
+		},
+		controller: function($scope) {
+			$scope.ok = function() {
+				delete $scope.message;
+			}
+		}
+	}
 
 });
